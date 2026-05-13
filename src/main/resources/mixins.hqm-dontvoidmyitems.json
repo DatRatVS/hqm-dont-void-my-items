@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "datrat.hqmdontvoidmyitems.mixin",
+  "refmap": "mixins.hqm-dontvoidmyitems.refmap.json",
+  "target": "@env(DEFAULT)",
+  "mixins": [
+    "MixinTileEntityBarrel"
+  ]
+}

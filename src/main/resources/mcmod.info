@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "hqm-dontvoidmyitems",
+    "name": "Hardcore Questing Mode: Don't Void My Items",
+    "description": "Prevents HQM Quest Delivery Systems from accepting item or fluid input unless that input advances the bound active QDS task.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["datrat"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": ["required-after:HardcoreQuesting"]
+  }
+]
