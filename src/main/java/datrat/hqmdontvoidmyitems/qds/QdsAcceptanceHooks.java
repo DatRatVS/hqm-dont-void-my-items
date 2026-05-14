@@ -6,7 +6,7 @@ import hardcorequesting.quests.QuestDataTask;
 import hardcorequesting.quests.QuestDataTaskItems;
 import hardcorequesting.quests.QuestTask;
 import hardcorequesting.quests.QuestTaskItems;
-import hardcorequesting.quests.QuestTaskItemsConsumeQDS;
+import hardcorequesting.quests.QuestTaskItemsConsume;
 import hardcorequesting.tileentity.TileEntityBarrel;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -97,11 +97,11 @@ public final class QdsAcceptanceHooks {
         }
 
         QuestTask currentTask = barrel.getCurrentTask();
-        if (!(currentTask instanceof QuestTaskItemsConsumeQDS)) {
+        if (!(currentTask instanceof QuestTaskItemsConsume)) {
             return null;
         }
 
-        QuestTaskItemsConsumeQDS task = (QuestTaskItemsConsumeQDS) currentTask;
+        QuestTaskItemsConsume task = (QuestTaskItemsConsume) currentTask;
         Quest parent = task.getParent();
         if (parent == null || !parent.isAvailable(playerName)) {
             return null;
@@ -188,11 +188,11 @@ public final class QdsAcceptanceHooks {
 
     private static final class ActiveQdsTask {
         private final String playerName;
-        private final QuestTaskItemsConsumeQDS task;
+        private final QuestTaskItemsConsume task;
         private final QuestDataTaskItems data;
         private final QuestTaskItems.ItemRequirement[] requirements;
 
-        private ActiveQdsTask(String playerName, QuestTaskItemsConsumeQDS task, QuestDataTaskItems data, QuestTaskItems.ItemRequirement[] requirements) {
+        private ActiveQdsTask(String playerName, QuestTaskItemsConsume task, QuestDataTaskItems data, QuestTaskItems.ItemRequirement[] requirements) {
             this.playerName = playerName;
             this.task = task;
             this.data = data;

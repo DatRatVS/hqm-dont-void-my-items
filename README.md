@@ -21,7 +21,7 @@
 
 # Don't Void My Items
 
-A Minecraft mod that prevents Hardcore Questing Mode Quest Delivery Systems from accepting item or fluid input unless that input would advance the bound active QDS consume task.
+A Minecraft mod that prevents Hardcore Questing Mode Quest Delivery Systems from accepting item or fluid input unless that input would advance the bound active consume task.
 
 ## Features
 
@@ -46,11 +46,11 @@ This mod uses a small coremod patch because HQM's QDS accepts and consumes input
 
 ## QDS Input Protection
 
-The QDS only accepts input when it can resolve an active bound QDS consume task:
+The QDS only accepts input when it can resolve an active bound consume task:
 
 - The QDS has a stored player name.
 - The QDS resolves a current task.
-- The current task is `QuestTaskItemsConsumeQDS`.
+- The current task is `QuestTaskItemsConsume`, including QDS consume tasks.
 - The parent quest is available for that player.
 - The task data is `QuestDataTaskItems`.
 - The task is not already completed.
