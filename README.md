@@ -27,7 +27,7 @@ A Minecraft mod that prevents Hardcore Questing Mode Quest Delivery Systems from
 
 - **Item Protection**: Rejects items that do not match an unmet QDS item requirement.
 - **Fluid Protection**: Rejects fluids that do not match an unmet QDS fluid requirement.
-- **No Overfill Voiding**: Accepts only the amount still needed by the task.
+- **No Overfill Voiding**: Rejects oversized item stacks and only accepts fluid amounts still needed by the task.
 - **Unbound QDS Safety**: Rejects item and fluid input when the QDS is not bound to a player task.
 - **Completed Task Safety**: Rejects input after the bound task is already complete.
 - **Cooldown Safety**: Respects HQM repeatable quest availability, including quests on cooldown.
@@ -55,7 +55,7 @@ The QDS only accepts input when it can resolve an active bound consume task:
 - The task data is `QuestDataTaskItems`.
 - The task is not already completed.
 
-Items are checked against unmet item requirements using HQM's own `ItemPrecision.areItemsSame` rules. Fluids are checked against unmet fluid requirements by fluid id.
+Items are checked against unmet item requirements using HQM's own `ItemPrecision.areItemsSame` rules. Item stacks are accepted only when the whole offered stack can be consumed, because Minecraft inventory insertion has no safe partial-return channel for QDS leftovers. Fluids are checked against unmet fluid requirements by fluid id and can be partially accepted through `IFluidHandler.fill`.
 
 Valid progress is still applied through HQM's original task methods:
 

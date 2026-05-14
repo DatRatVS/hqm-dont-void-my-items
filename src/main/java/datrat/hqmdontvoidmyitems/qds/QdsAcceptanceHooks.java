@@ -20,18 +20,16 @@ public final class QdsAcceptanceHooks {
 
     public static boolean canAcceptItem(TileEntityBarrel barrel, ItemStack stack) {
         ActiveQdsTask activeTask = resolveActiveTask(barrel);
-        return activeTask != null && getAcceptedItemAmount(activeTask, stack) > 0;
+        return canAcceptWholeItemStack(activeTask, stack);
     }
 
     public static boolean acceptItem(TileEntityBarrel barrel, ItemStack stack) {
         ActiveQdsTask activeTask = resolveActiveTask(barrel);
-        int accepted = getAcceptedItemAmount(activeTask, stack);
-        if (accepted <= 0) {
+        if (!canAcceptWholeItemStack(activeTask, stack)) {
             return false;
         }
 
         ItemStack acceptedStack = stack.copy();
-        acceptedStack.stackSize = accepted;
         ItemStack[] acceptedStacks = new ItemStack[] {acceptedStack};
         boolean progressed = activeTask.task.increaseItems(acceptedStacks, activeTask.data, activeTask.playerName);
         if (!progressed) {
@@ -39,12 +37,12 @@ public final class QdsAcceptanceHooks {
         }
 
         int remaining = acceptedStacks[0] == null ? 0 : acceptedStacks[0].stackSize;
-        int consumed = accepted - Math.max(0, remaining);
-        if (consumed <= 0) {
+        int consumed = stack.stackSize - Math.max(0, remaining);
+        if (consumed != stack.stackSize) {
             return false;
         }
 
-        stack.stackSize = Math.max(0, stack.stackSize - consumed);
+        stack.stackSize = 0;
         scheduleSync(barrel);
         return true;
     }
@@ -140,6 +138,13 @@ public final class QdsAcceptanceHooks {
         }
 
         return accepted;
+    }
+
+    private static boolean canAcceptWholeItemStack(ActiveQdsTask activeTask, ItemStack stack) {
+        return activeTask != null
+            && stack != null
+            && stack.stackSize > 0
+            && getAcceptedItemAmount(activeTask, stack) == stack.stackSize;
     }
 
     private static int getAcceptedFluidAmount(ActiveQdsTask activeTask, Fluid fluid, int maxAmount) {
